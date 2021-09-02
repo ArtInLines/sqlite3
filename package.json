@@ -1,0 +1,22 @@
+{
+	"name": "sqlite3",
+	"version": "1.0.0",
+	"description": "A simple to use SQLite3 module, that requires virtually no knowledge of SQL-Queries",
+	"main": "index.js",
+	"repository": "https://github.com/ArtInLines/sqlite3.git",
+	"author": "ArtInLines <linesinart@gmail.com>",
+	"license": "MIT",
+	"private": false,
+	"directories": {
+		"test": "__tests__"
+	},
+	"dependencies": {
+		"better-sqlite3": "^7.4.3"
+	},
+	"devDependencies": {
+		"jest": "^27.1.0"
+	},
+	"scripts": {
+		"test": "jest"
+	}
+}
