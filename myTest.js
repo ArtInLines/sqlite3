@@ -1,3 +1,8 @@
 const SQLiteDB = require('./lib/SQLiteDB');
 
-let db = new SQLiteDB(':memory:');
+let db = new SQLiteDB('temp.db');
+
+console.log(db.db.prepare('CREATE TABLE IF NOT EXISTS cats ( name TEXT, age INTEGER, color TEXT )').run());
+console.log(db.db.prepare('CREATE TABLE IF NOT EXISTS people ( name TEXT, age INTEGER )').run());
+// console.log(db.insert('cats', ['name', 'age'], ['Sissy', 1]));
+console.log(db.tables());
