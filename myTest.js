@@ -12,7 +12,8 @@ db.createTable({
 	],
 });
 console.log(db.tableNames());
-console.log(db.tables());
+console.log(db.schema('cats', false));
+// console.log(db.tables());
 
 return;
 
