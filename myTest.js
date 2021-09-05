@@ -5,12 +5,58 @@ let db = new SQLiteDB(':memory:', { verbose: console.log, bindToStr: true });
 db.createTable({
 	name: 'cats',
 	cols: [
-		{ name: 'name', type: 'TEXT', notNull: true },
+		{ name: 'cat_id', type: 'INTEGER', autoincrement: true, primaryKey: true },
+		{ name: 'name', type: 'TEXT', notNull: true, unique: true },
 		{ name: 'age', type: 'REAL' },
-		{ name: 'color', type: 'TEXT' },
+		{ name: 'color', type: 'TEXT', default: 'grey' },
 	],
+	withoutRowID: true,
+	onUpdateDefaultAction: 'NO ACTION',
+	onDeleteDefaultAction: 'CASCADE',
 });
-db.createTable({ ...db.schema('cats', true), ...{ ifNotExists: true } });
+let schema = db.schema('cats', true);
+db.deleteTable('cats');
+db.createTable({ ...schema, ...{ ifNotExists: true } });
+
+db.createTable({
+	name: 'people',
+	cols: [
+		{ name: 'person_id', type: 'REAL', primaryKey: true },
+		{ name: 'name', type: 'TEXT', notNull: true, unique: true },
+		{ name: 'age', type: 'INTEGER', default: 18, notNull: true },
+		{ name: 'profile_pic', type: 'BLOB', unique: true },
+	],
+	tableChecks: {
+		check: ['age >= 18', 'age <= 99'],
+	},
+});
+schema = db.schema('people', true);
+db.deleteTable('people');
+db.createTable({ ...schema, ...{ ifNotExists: true } });
+
+db.createTable({
+	name: 'people_cats_group',
+	cols: [
+		{ name: 'person_id', notNull: true, type: 'REAL', foreignKey: { foreignTable: 'people', onUpdate: 'CASCADE', onDelete: 'SET NULL' } },
+		{ name: 'cat_id', notNull: true, type: 'INTEGER', primaryKey: true },
+	],
+	tableChecks: {
+		primaryKey: ['person_id', 'cat_id'],
+		foreignKey: [
+			{
+				key: 'cat_id',
+				foreignTable: 'cats',
+				onUpdate: 'CASCADE',
+			},
+		],
+	},
+	onDeleteDefaultAction: 'CASCADE',
+});
+schema = db.schema('people_cats_group', true);
+db.deleteTable('people_cats_group');
+db.createTable({ ...schema, ...{ ifNotExists: true } });
+
+console.log(db.tableNames());
 
 // db.insert('cats', ['name', 'color', 'age'], ['Sissy', 'grey', 1], ['Kitty', 'greyish', null]);
 // db.insert('cats', null, 'Xavi', 8, 'orange');
