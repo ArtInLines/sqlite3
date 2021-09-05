@@ -10,11 +10,13 @@ db.createTable({
 		{ name: 'color', type: 'TEXT' },
 	],
 });
-db.insert('cats', ['name', 'color', 'age'], ['Sissy', 'grey', 1], ['Kitty', 'greyish', null]);
-db.insert('cats', null, 'Xavi', 8, 'orange');
-console.log(db.prepare('SELECT * FROM cats').all());
-db.delete({ table: 'cats', filterCondition: "color LIKE '%grey%'" });
-console.log(db.prepare('SELECT * FROM cats').all());
+db.createTable({ ...db.schema('cats', true), ...{ ifNotExists: true } });
+
+// db.insert('cats', ['name', 'color', 'age'], ['Sissy', 'grey', 1], ['Kitty', 'greyish', null]);
+// db.insert('cats', null, 'Xavi', 8, 'orange');
+// console.log(db.prepare('SELECT * FROM cats').all());
+// db.delete({ table: 'cats', filterCondition: "color LIKE '%grey%'" });
+// console.log(db.prepare('SELECT * FROM cats').all());
 
 // db.prepare('CREATE TABLE IF NOT EXISTS cats ( name TEXT, age INTEGER, color TEXT )').run();
 // db.prepare('CREATE TABLE IF NOT EXISTS people ( name TEXT, age INTEGER )').run();
