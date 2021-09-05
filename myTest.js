@@ -11,6 +11,7 @@ db.createTable({
 		{ name: 'color', type: 'TEXT' },
 	],
 });
+console.log(db.tableNames());
 console.log(db.tables());
 
 return;
