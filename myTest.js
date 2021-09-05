@@ -1,6 +1,19 @@
 const SQLiteDB = require('./lib/SQLiteDB');
 
-let db = new SQLiteDB(':memory:', { verbose: null, bindToStr: true });
+let db = new SQLiteDB(':memory:', { verbose: console.log, bindToStr: true });
+
+db.createTable({
+	name: 'cats',
+	cols: [
+		{ name: 'catId', type: 'INTEGER', autoincrement: true, primaryKey: true },
+		{ name: 'name', type: 'TEXT', notNull: true },
+		{ name: 'age', type: 'REAL' },
+		{ name: 'color', type: 'TEXT' },
+	],
+});
+console.log(db.tables());
+
+return;
 
 db.prepare('CREATE TABLE IF NOT EXISTS cats ( name TEXT, age INTEGER, color TEXT )').run();
 db.prepare('CREATE TABLE IF NOT EXISTS people ( name TEXT, age INTEGER )').run();
