@@ -67,6 +67,16 @@ console.log(db.prepare('SELECT * FROM people_cats_group').all());
 db.replace('people', ['name', 'age'], 'Jane Doe', 29);
 db.replace('people', ['person_id', 'name', 'age'], 2, 'John Doe', 34);
 
+db.update('people', ['age', 30], "name = 'Jane Doe'", null, 1, null);
+db.update(
+	'cats',
+	[
+		['color', 'grey'],
+		['age', 1],
+	],
+	"color LIKE 'grey%'"
+);
+
 console.log(db.prepare('SELECT * FROM cats').all());
 console.log(db.prepare('SELECT * FROM people').all());
 console.log(db.prepare('SELECT * FROM people_cats_group').all());
