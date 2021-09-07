@@ -60,9 +60,9 @@ db.insert(
 db.insert('people', 'name', 'Art');
 // db.insert('people_cats_group', null, ['SELECT person_id FROM people WHERE name=Firefly', 0]);
 
-console.log(db.prepare('SELECT * FROM cats').all());
-console.log(db.prepare('SELECT * FROM people').all());
-console.log(db.prepare('SELECT * FROM people_cats_group').all());
+console.log(db.select('cats').all());
+console.log(db.select('people').all());
+console.log(db.select('people_cats_group').all());
 
 db.replace('people', ['name', 'age'], 'Jane Doe', 29);
 db.replace('people', ['person_id', 'name', 'age'], 2, 'John Doe', 34);
@@ -77,6 +77,19 @@ db.update(
 	"color LIKE 'grey%'"
 );
 
-console.log(db.prepare('SELECT * FROM cats').all());
-console.log(db.prepare('SELECT * FROM people').all());
-console.log(db.prepare('SELECT * FROM people_cats_group').all());
+// console.log(db.select('cats').all());
+// console.log(db.select('people').all());
+// console.log(db.select('people_cats_group').all());
+console.log(
+	db
+		.select({
+			tableList: 'people',
+			columnList: ['name', 'age'],
+			rowFilter: '? > ?',
+			orderBy: 'age DESC',
+			limitCount: 30,
+			offset: 0,
+			valueList: ['age', 18],
+		})
+		.all()
+);
