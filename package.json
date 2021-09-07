@@ -1,5 +1,5 @@
 {
-	"name": "sqlite3",
+	"name": "sqlite.js",
 	"version": "0.1.0",
 	"description": "A simple to use SQLite3 module, that requires virtually no knowledge of SQL-Queries",
 	"main": "index.js",
