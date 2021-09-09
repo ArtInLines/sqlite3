@@ -8,9 +8,6 @@
 	"license": "MIT",
 	"private": false,
 	"types": "./docs/",
-	"files": [
-		"./"
-	],
 	"dependencies": {
 		"better-sqlite3": "^7.4.3"
 	},
