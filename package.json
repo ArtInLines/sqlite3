@@ -8,10 +8,17 @@
 	"license": "MIT",
 	"private": false,
 	"types": "./docs/",
+	"files": [
+		"./"
+	],
 	"dependencies": {
 		"better-sqlite3": "^7.4.3"
 	},
 	"devDependencies": {
 		"typescript": "^4.4.2"
+	},
+	"np": {
+		"tests": false,
+		"message": "v%s"
 	}
 }
